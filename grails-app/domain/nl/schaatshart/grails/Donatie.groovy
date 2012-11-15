@@ -1,4 +1,4 @@
-package nl.schaatshart.grails.domain
+package nl.schaatshart.grails
 
 class Donatie {
 	String name;

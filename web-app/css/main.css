@@ -26,3 +26,15 @@ h2{
 ul li {
 	margin-left: 25px;
 }
+label{
+	width: 200px;
+	display:block;
+	float:left;
+}
+input.anoniem {
+	float: left;
+}
+label.anoniem{
+	width: auto;
+	float: none;
+}
