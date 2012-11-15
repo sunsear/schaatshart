@@ -38,3 +38,9 @@ label.anoniem{
 	width: auto;
 	float: none;
 }
+.explanation{
+	font-size: smaller;
+}
+#total {
+	font-weight: bold;
+}
