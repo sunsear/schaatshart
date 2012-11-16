@@ -44,7 +44,7 @@ label.anoniem{
 #total {
 	font-weight: bold;
 }
-table.donaties {
+table.donaties, p{
 	margin: 15px 0;
 }
 table.donaties col.naam {
@@ -63,9 +63,9 @@ table.donaties th{
 	text-align: left;
 	background: black;
 }
+table.donaties th a{
+	color: white;
+}
 em {
 	font-style: italic;
-}
-p {
-	margin-bottom: 15px;
 }

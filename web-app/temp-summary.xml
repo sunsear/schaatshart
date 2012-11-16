@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<summary>
+	<fundraiserName>Martin van Dijken</fundraiserName> <!-- Can contains HTML entities -->
+	<charityName>Stichting Hartekind</charityName> <!-- Can contains HTML entities -->
+	<raisedAmount>50</raisedAmount>
+	<targetAmount>2500</targetAmount>
+	<link_fundraisingPage>http://schaatsenvoorhartekind2013.alvarum.net/martinvandijken</link_fundraisingPage>
+	<link_Alvarum>http://www.alvarum.com</link_Alvarum>
+</summary>

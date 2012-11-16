@@ -2,154 +2,72 @@ package nl.schaatshart.grails
 
 
 
-import org.junit.*
 import grails.test.mixin.*
+
+import org.junit.*
 
 @TestFor(DonatieController)
 @Mock(Donatie)
 class DonatieControllerTests {
 
-    def populateValidParams(params) {
-        assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
-    }
+	def populateValidParams(params) {
+		assert params != null
+		params["name"] = 'Martin van Dijken'
+		params["email"] = "m@nu.nl"
+		params["amountPerKm"] = "1"
+	}
 
-    void testIndex() {
-        controller.index()
-        assert "/donatie/list" == response.redirectedUrl
-    }
+	void testIndex() {
+		controller.index()
+		assert "/donatie/list" == response.redirectedUrl
+	}
 
-    void testList() {
+	void testList() {
 
-        def model = controller.list()
+		def model = controller.list()
 
-        assert model.donatieInstanceList.size() == 0
-        assert model.donatieInstanceTotal == 0
-    }
+		assert model.donatieInstanceList.size() == 0
+		assert model.donatieInstanceTotal == 0
+	}
 
-    void testCreate() {
-        def model = controller.create()
+	void testCreate() {
+		def model = controller.create()
 
-        assert model.donatieInstance != null
-    }
+		assert model.donatieInstance != null
+	}
 
-    void testSave() {
-        controller.save()
+	void testSave() {
+		controller.save()
 
-        assert model.donatieInstance != null
-        assert view == '/donatie/create'
+		assert model.donatieInstance != null
+		assert view == '/donatie/create'
 
-        response.reset()
+		response.reset()
 
-        populateValidParams(params)
-        controller.save()
+		populateValidParams(params)
+		controller.save()
 
-        assert response.redirectedUrl == '/donatie/show/1'
-        assert controller.flash.message != null
-        assert Donatie.count() == 1
-    }
+		assert response.redirectedUrl == '/donatie/show'
+		assert controller.flash.message != null
+		assert controller.flash.donatieId == 1
+		assert Donatie.count() == 1
+	}
 
-    void testShow() {
-        controller.show()
+	void testShow() {
+		controller.show()
 
-        assert flash.message != null
-        assert response.redirectedUrl == '/donatie/list'
+		assert flash.message != null
+		assert response.redirectedUrl == '/donatie/list'
 
-        populateValidParams(params)
-        def donatie = new Donatie(params)
+		populateValidParams(params)
+		def donatie = new Donatie(params)
 
-        assert donatie.save() != null
+		assert donatie.save() != null
 
-        params.id = donatie.id
+		controller.flash.donatieId = donatie.id
 
-        def model = controller.show()
+		def model = controller.show()
 
-        assert model.donatieInstance == donatie
-    }
-
-    void testEdit() {
-        controller.edit()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/donatie/list'
-
-        populateValidParams(params)
-        def donatie = new Donatie(params)
-
-        assert donatie.save() != null
-
-        params.id = donatie.id
-
-        def model = controller.edit()
-
-        assert model.donatieInstance == donatie
-    }
-
-    void testUpdate() {
-        controller.update()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/donatie/list'
-
-        response.reset()
-
-        populateValidParams(params)
-        def donatie = new Donatie(params)
-
-        assert donatie.save() != null
-
-        // test invalid parameters in update
-        params.id = donatie.id
-        //TODO: add invalid values to params object
-
-        controller.update()
-
-        assert view == "/donatie/edit"
-        assert model.donatieInstance != null
-
-        donatie.clearErrors()
-
-        populateValidParams(params)
-        controller.update()
-
-        assert response.redirectedUrl == "/donatie/show/$donatie.id"
-        assert flash.message != null
-
-        //test outdated version number
-        response.reset()
-        donatie.clearErrors()
-
-        populateValidParams(params)
-        params.id = donatie.id
-        params.version = -1
-        controller.update()
-
-        assert view == "/donatie/edit"
-        assert model.donatieInstance != null
-        assert model.donatieInstance.errors.getFieldError('version')
-        assert flash.message != null
-    }
-
-    void testDelete() {
-        controller.delete()
-        assert flash.message != null
-        assert response.redirectedUrl == '/donatie/list'
-
-        response.reset()
-
-        populateValidParams(params)
-        def donatie = new Donatie(params)
-
-        assert donatie.save() != null
-        assert Donatie.count() == 1
-
-        params.id = donatie.id
-
-        controller.delete()
-
-        assert Donatie.count() == 0
-        assert Donatie.get(donatie.id) == null
-        assert response.redirectedUrl == '/donatie/list'
-    }
+		assert model.donatieInstance == donatie
+	}
 }

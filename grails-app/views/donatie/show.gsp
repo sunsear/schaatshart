@@ -16,10 +16,13 @@
 					<col class="naam"></col>
 					<col class="donatie"></col>
 				</colgroup>
+				<thead>
 				<tr>
 					<th><g:message code="donatie.name.label" default="Naam" /></th>
 					<th><g:message code="donatie.label" default="Donatie" /></th>
 				</tr>
+				</thead>
+				<tbody>
 				<tr>
 					<td>
 						<g:if test="${!donatieInstance.anoniem}">
@@ -33,6 +36,7 @@
 						<g:message code="donatie.per.km" args="${[donatieInstance.amountPerKm]}"/>
 					</td>
 				</tr>
+				</tbody>
 			</table>			
 			
 			<p>De volgende gegevens worden <em>NIET</em> op de site vermeld, maar worden gebruikt om de uiteindelijke afrekening te kunnen doen.</p>
@@ -48,29 +52,19 @@
 				<g:if test="${donatieInstance?.email}">
 				<li class="fieldcontain">
 					<span id="email-label" class="property-label"><g:message code="donatie.email.label" default="Email" />:</span>
-					
-						<span class="property-value" aria-labelledby="email-label"><g:fieldValue bean="${donatieInstance}" field="email"/></span>
-					
+					<span class="property-value" aria-labelledby="email-label"><g:fieldValue bean="${donatieInstance}" field="email"/></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${donatieInstance?.phone}">
 				<li class="fieldcontain">
 					<span id="phone-label" class="property-label"><g:message code="donatie.phone.label" default="Phone" />:</span>
-					
-						<span class="property-value" aria-labelledby="phone-label"><g:fieldValue bean="${donatieInstance}" field="phone"/></span>
-					
+					<span class="property-value" aria-labelledby="phone-label"><g:fieldValue bean="${donatieInstance}" field="phone"/></span>
 				</li>
 				</g:if>
-			
 			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${donatieInstance?.id}" />
-					<g:link class="edit" action="edit" id="${donatieInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
+			
+			<p>Mocht je een fout gemaakt hebben bij het invoeren van deze gegevens, neem svp even contact met me op via <a href="mailto:info@schaatshart.nl">email</a>.
 		</div>
 	</body>
 </html>
