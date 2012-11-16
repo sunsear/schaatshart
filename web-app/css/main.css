@@ -44,3 +44,28 @@ label.anoniem{
 #total {
 	font-weight: bold;
 }
+table.donaties {
+	margin: 15px 0;
+}
+table.donaties col.naam {
+	width: 350px;
+}
+table.donaties col.donatie {
+	width: 150px;
+}
+table.donaties td, table.donaties th{
+	padding: 3px;
+	border: 1px solid black;
+}
+table.donaties th{
+	color: white;
+	font-weight: bold;
+	text-align: left;
+	background: black;
+}
+em {
+	font-style: italic;
+}
+p {
+	margin-bottom: 15px;
+}

@@ -1,4 +1,3 @@
-
 <%@ page import="nl.schaatshart.grails.Donatie" %>
 <!DOCTYPE html>
 <html>
@@ -12,33 +11,43 @@
 			 
 			<h1>Bedankt voor je donatie!</h1>
 			<p>Na 25 januari neem ik contact met je op om het overmaken van de donatie te regelen. Je donatie wordt als volgt op de site vermeld:</p>
+			<table class="donaties" cellpadding="0" cellspacing="0">
+				<colgroup>
+					<col class="naam"></col>
+					<col class="donatie"></col>
+				</colgroup>
+				<tr>
+					<th><g:message code="donatie.name.label" default="Naam" /></th>
+					<th><g:message code="donatie.label" default="Donatie" /></th>
+				</tr>
+				<tr>
+					<td>
+						<g:if test="${!donatieInstance.anoniem}">
+							<g:fieldValue bean="${donatieInstance}" field="name"/>
+						</g:if>
+						<g:if test="${donatieInstance.anoniem}">
+							Anoniem
+						</g:if>
+					</td>
+					<td>
+						<g:message code="donatie.per.km" args="${[donatieInstance.amountPerKm]}"/>
+					</td>
+				</tr>
+			</table>			
+			
+			<p>De volgende gegevens worden <em>NIET</em> op de site vermeld, maar worden gebruikt om de uiteindelijke afrekening te kunnen doen.</p>
+
 			<ol class="property-list donatie">
-			
-				<g:if test="${donatieInstance?.name}">
+				<g:if test="${donatieInstance?.anoniem}">
 				<li class="fieldcontain">
-					<span id="name-label" class="property-label"><g:message code="donatie.name.label" default="Name" /></span>
-					<g:if test="${!donatieInstance?.anoniem}">
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${donatieInstance}" field="name"/></span>
-					</g:if>
-					<g:if test="${donatieInstance?.anoniem}">
-						<span class="property-value" aria-labelledby="name-label">Anoniem</span>
-					</g:if>
-				</li>
-				</g:if>
-			
-			
-				<g:if test="${donatieInstance?.amountPerKm}">
-				<li class="fieldcontain">
-					<span id="amountPerKm-label" class="property-label"><g:message code="donatie.amountPerKm.label" default="Amount Per Km" /></span>
-					
-						<span class="property-value" aria-labelledby="amountPerKm-label"><g:fieldValue bean="${donatieInstance}" field="amountPerKm"/></span>
-					
+					<span id="name-label" class="property-label"><g:message code="donatie.name.label" default="Name" />:</span>
+					<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${donatieInstance}" field="name"/></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${donatieInstance?.email}">
 				<li class="fieldcontain">
-					<span id="email-label" class="property-label"><g:message code="donatie.email.label" default="Email" /></span>
+					<span id="email-label" class="property-label"><g:message code="donatie.email.label" default="Email" />:</span>
 					
 						<span class="property-value" aria-labelledby="email-label"><g:fieldValue bean="${donatieInstance}" field="email"/></span>
 					
@@ -47,7 +56,7 @@
 			
 				<g:if test="${donatieInstance?.phone}">
 				<li class="fieldcontain">
-					<span id="phone-label" class="property-label"><g:message code="donatie.phone.label" default="Phone" /></span>
+					<span id="phone-label" class="property-label"><g:message code="donatie.phone.label" default="Phone" />:</span>
 					
 						<span class="property-value" aria-labelledby="phone-label"><g:fieldValue bean="${donatieInstance}" field="phone"/></span>
 					
