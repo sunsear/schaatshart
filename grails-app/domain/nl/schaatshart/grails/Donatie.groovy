@@ -13,4 +13,10 @@ class Donatie {
 		email email:true, blank:false
 		phone nullable: true
 	}
+
+	static def getOverallAmount() {
+		def c = Donatie.createCriteria()
+		def amount = c.get { projections { sum "amountPerKm" } }
+		return amount==null?0:amount
+	}
 }
