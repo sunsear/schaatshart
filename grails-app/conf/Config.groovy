@@ -88,4 +88,5 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+	debug 'org.apache.http.headers', "org.apache.http.wire"
 }
