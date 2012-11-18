@@ -16,7 +16,7 @@ class DonatieStatusControllerTests {
 		def mock = new MockFor(DonatiesOpAlvarumRetrieverService)
 		mock.demand.haalOp{100}
 		mock.use(){
-			controller.retriever = new DonatiesOpAlvarumRetrieverService()
+			controller.donatiesOpAlvarumRetrieverService = new DonatiesOpAlvarumRetrieverService()
 			def donatie = DonatieTests.createDonatie()
 			donatie.save(flush:true)
 			controller.index()
@@ -29,7 +29,7 @@ class DonatieStatusControllerTests {
 		def mock = new MockFor(DonatiesOpAlvarumRetrieverService)
 		mock.demand.haalOp{null}
 		mock.use(){
-			controller.retriever = new DonatiesOpAlvarumRetrieverService()
+			controller.donatiesOpAlvarumRetrieverService = new DonatiesOpAlvarumRetrieverService()
 			def donatie = DonatieTests.createDonatie()
 			donatie.save(flush:true)
 			controller.index()

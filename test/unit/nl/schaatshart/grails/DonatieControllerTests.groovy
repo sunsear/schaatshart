@@ -2,7 +2,9 @@ package nl.schaatshart.grails
 
 
 
+import grails.plugin.simplecaptcha.SimpleCaptchaService
 import grails.test.mixin.*
+import groovy.mock.interceptor.MockFor
 
 import org.junit.*
 
@@ -36,21 +38,43 @@ class DonatieControllerTests {
 		assert model.donatieInstance != null
 	}
 
-	void testSaveIncorrectInstance() {
-		controller.save()
+	void testSaveIncorrectCaptcha() {
+		def mock = new MockFor(SimpleCaptchaService)
+		mock.demand.validateCaptcha{return false}
+		mock.use(){
+			controller.simpleCaptchaService=new SimpleCaptchaService()
+			controller.save()
 
-		assert model.donatieInstance != null
-		assert view == '/donatie/create'
+			assert model.donatieInstance != null
+			assert view == '/donatie/create'
+		}
+	}
+
+	void testSaveIncorrectInstance() {
+		def mock = new MockFor(SimpleCaptchaService)
+		mock.demand.validateCaptcha{return true}
+		mock.use(){
+			controller.simpleCaptchaService=new SimpleCaptchaService()
+			controller.save()
+
+			assert model.donatieInstance != null
+			assert view == '/donatie/create'
+		}
 	}
 
 	void testSaveCorrectInstance(){
-		populateValidParams(params)
-		controller.save()
+		def mock = new MockFor(SimpleCaptchaService)
+		mock.demand.validateCaptcha{return true}
+		mock.use(){
+			controller.simpleCaptchaService=new SimpleCaptchaService()
+			populateValidParams(params)
+			controller.save()
 
-		assert response.redirectedUrl == '/donatie/show'
-		assert controller.flash.message != null
-		assert controller.flash.donatieId == 1
-		assert Donatie.count() == 1
+			assert response.redirectedUrl == '/donatie/show'
+			assert controller.flash.message != null
+			assert controller.flash.donatieId == 1
+			assert Donatie.count() == 1
+		}
 	}
 
 	void testShow() {
