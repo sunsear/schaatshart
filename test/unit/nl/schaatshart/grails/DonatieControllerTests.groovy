@@ -36,14 +36,14 @@ class DonatieControllerTests {
 		assert model.donatieInstance != null
 	}
 
-	void testSave() {
+	void testSaveIncorrectInstance() {
 		controller.save()
 
 		assert model.donatieInstance != null
 		assert view == '/donatie/create'
+	}
 
-		response.reset()
-
+	void testSaveCorrectInstance(){
 		populateValidParams(params)
 		controller.save()
 

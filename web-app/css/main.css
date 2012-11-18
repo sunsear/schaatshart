@@ -23,6 +23,9 @@ h2{
 	font-weight: bold;
 	margin-top: 10px;
 }
+ul.errors li {
+	color: red;
+}
 ul li {
 	margin-left: 25px;
 }

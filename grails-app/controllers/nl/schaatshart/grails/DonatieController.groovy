@@ -4,6 +4,7 @@ package nl.schaatshart.grails
 class DonatieController {
 
     static allowedMethods = [save: "POST"]
+	def simpleCaptchaService
 
     def index() {
         redirect(action: "list", params: params)
@@ -19,7 +20,12 @@ class DonatieController {
     }
 
     def save() {
-        def donatieInstance = new Donatie(params)
+    	def donatieInstance = new Donatie(params)
+		if (!simpleCaptchaService.validateCaptcha(params.captcha)){
+			donatieInstance.errors.reject('donatie.captcha.doesnotmatch')
+			render(view: "create", model: [donatieInstance: donatieInstance])
+			return
+		}
         if (!donatieInstance.save(flush: true)) {
             render(view: "create", model: [donatieInstance: donatieInstance])
             return
