@@ -13,7 +13,7 @@ class DonatieController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [donatieInstanceList: Donatie.list(params), donatieInstanceTotal: Donatie.count(), donatiesOpAlvarum: donatiesOpAlvarumRetrieverService.haalOp()]
+        [donatieInstanceList: Donatie.list(params), donatieInstanceTotal: Donatie.count(), donatieInstanceSum: Donatie.getOverallAmount() ,donatiesOpAlvarum: donatiesOpAlvarumRetrieverService.haalOp()]
     }
 
     def create() {

@@ -16,9 +16,11 @@
 			<p>Helaas worden donaties op twee plekken geregistreerd. Directe donaties worden bij Alvarum aangenomen. 
 			Zij hebben de methodes om geld in ontvangst te nemen en dat door te sturen naar Stichting Hartekind.
 			Helaas is het bij hen niet mogelijk om donaties te registreren die afhankelijk zijn van het aantal geschaatste
-			kilometers. Deze donaties staan dus hieronder.
+			kilometers. Deze donaties staan dus in de lijst hieronder.
 			</p>
-			<h3><a href="http://schaatsenvoorhartekind2013.alvarum.net/martinvandijken#donations">Totale donaties op Alvarum: ${donatiesOpAlvarum}</a></h3>
+			<p><a href="http://schaatsenvoorhartekind2013.alvarum.net/martinvandijken#donations">Totale donaties op Alvarum: ${donatiesOpAlvarum}</a></p>
+			<h2>Donaties gebaseerd op prestatie</h2>
+			<p>Totale donaties gebaseerd op prestatie: ${donatieInstanceSum}</a></p>
 			<table class="donaties" cellpadding="0" cellspacing="0">
 				<colgroup>
 					<col class="naam"></col>
