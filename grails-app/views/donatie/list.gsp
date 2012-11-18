@@ -13,6 +13,12 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
+			<p>Helaas worden donaties op twee plekken geregistreerd. Directe donaties worden bij Alvarum aangenomen. 
+			Zij hebben de methodes om geld in ontvangst te nemen en dat door te sturen naar Stichting Hartekind.
+			Helaas is het bij hen niet mogelijk om donaties te registreren die afhankelijk zijn van het aantal geschaatste
+			kilometers. Deze donaties staan dus hieronder.
+			</p>
+			<h3><a href="http://schaatsenvoorhartekind2013.alvarum.net/martinvandijken#donations">Totale donaties op Alvarum: ${donatiesOpAlvarum}</a></h3>
 			<table class="donaties" cellpadding="0" cellspacing="0">
 				<colgroup>
 					<col class="naam"></col>

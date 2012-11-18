@@ -78,7 +78,7 @@ em {
  */
 
 /* All HTML5 progress enabled browsers */
-progress.example3 {
+progress.voortgang {
 
 	/* Turns off styling - not usually needed, but good to know. */
 	appearance: none;
@@ -93,7 +93,7 @@ progress.example3 {
 }
 
 /* Polyfill */
-progress.example3[role]:after {
+progress.voortgang[role]:after {
 	background-image: none; /* removes default background from polyfill */
 }
 
@@ -102,12 +102,12 @@ progress.example3[role]:after {
  */
 
 /* Firefox and Polyfill */
-progress.example3 {
+progress.voortgang {
 	background: #cccccc !important; /* !important only needed in polyfill */
 }
 
 /* Chrome */
-progress.example3::-webkit-progress-bar {
+progress.voortgang::-webkit-progress-bar {
 	background: #cccccc;
 }
 
@@ -116,7 +116,7 @@ progress.example3::-webkit-progress-bar {
  */
 
 /* Firefox */
-progress.example3::-moz-progress-bar {
+progress.voortgang::-moz-progress-bar {
 	border-radius: 5px;
 	background-image: -moz-linear-gradient(
 		center bottom,
@@ -126,7 +126,7 @@ progress.example3::-moz-progress-bar {
 }
 
 /* Chrome */
-progress.example3::-webkit-progress-value {
+progress.voortgang::-webkit-progress-value {
 	border-radius: 5px;
 	background-image: -webkit-gradient(
 		linear,
@@ -143,7 +143,7 @@ progress.example3::-webkit-progress-value {
 }
 
 /* Polyfill */
-progress.example3[aria-valuenow]:before {
+progress.voortgang[aria-valuenow]:before {
 	border-radius: 5px;
 	background-image: -moz-linear-gradient(
 		center bottom,
@@ -160,6 +160,12 @@ progress.example3[aria-valuenow]:before {
 		rgb(43,194,83) 37%,
 		rgb(84,240,84) 69%
 	);
+}
+strong.voortgang {
+	font-size:smaller;
+}
+strong.voortgang a {
+	color: black;
 }
 
 /* Polyfill */
@@ -186,6 +192,19 @@ a.steun {
 		rgb(43,194,83) 37%,
 		rgb(84,240,84) 69%
 	);
+		background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(43,194,83)),
+		color-stop(1, rgb(84,240,84))
+	);
+	background-image: -webkit-linear-gradient(
+		center bottom,
+		rgb(43,194,83) 37%,
+		rgb(84,240,84) 69%
+	);
+	
 }
 
 

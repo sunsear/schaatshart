@@ -5,6 +5,7 @@ class DonatieController {
 
     static allowedMethods = [save: "POST"]
 	def simpleCaptchaService
+	def donatiesOpAlvarumRetrieverService
 
     def index() {
         redirect(action: "list", params: params)
@@ -12,7 +13,7 @@ class DonatieController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [donatieInstanceList: Donatie.list(params), donatieInstanceTotal: Donatie.count()]
+        [donatieInstanceList: Donatie.list(params), donatieInstanceTotal: Donatie.count(), donatiesOpAlvarum: donatiesOpAlvarumRetrieverService.haalOp()]
     }
 
     def create() {
