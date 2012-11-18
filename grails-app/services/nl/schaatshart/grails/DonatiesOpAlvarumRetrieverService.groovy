@@ -1,8 +1,11 @@
-package nl.schaatshart.grails.external
+package nl.schaatshart.grails
 
+import grails.plugin.cache.Cacheable
 import groovyx.net.http.HTTPBuilder
 
-class DonatiesOpAlvarumRetriever {
+class DonatiesOpAlvarumRetrieverService {
+
+	@Cacheable('donatieTotaal')
 	public Integer haalOp(){
 		def http = new HTTPBuilder( 'http://schaatsenvoorhartekind2013.alvarum.net/martinvandijken/' )
 		Integer amount

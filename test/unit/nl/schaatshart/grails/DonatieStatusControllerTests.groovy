@@ -4,7 +4,6 @@ package nl.schaatshart.grails
 
 import grails.test.mixin.*
 import groovy.mock.interceptor.MockFor
-import nl.schaatshart.grails.external.DonatiesOpAlvarumRetriever
 
 import org.junit.*
 
@@ -14,10 +13,10 @@ class DonatieStatusControllerTests {
 
 	@Test
 	void allesOphalenLukt() {
-		def mock = new MockFor(DonatiesOpAlvarumRetriever)
+		def mock = new MockFor(DonatiesOpAlvarumRetrieverService)
 		mock.demand.haalOp{100}
 		mock.use(){
-			controller.retriever = new DonatiesOpAlvarumRetriever()
+			controller.retriever = new DonatiesOpAlvarumRetrieverService()
 			def donatie = DonatieTests.createDonatie()
 			donatie.save(flush:true)
 			controller.index()
@@ -27,10 +26,10 @@ class DonatieStatusControllerTests {
 
 	@Test
 	void ophalenBijAlvarumMislukt() {
-		def mock = new MockFor(DonatiesOpAlvarumRetriever)
+		def mock = new MockFor(DonatiesOpAlvarumRetrieverService)
 		mock.demand.haalOp{null}
 		mock.use(){
-			controller.retriever = new DonatiesOpAlvarumRetriever()
+			controller.retriever = new DonatiesOpAlvarumRetrieverService()
 			def donatie = DonatieTests.createDonatie()
 			donatie.save(flush:true)
 			controller.index()
