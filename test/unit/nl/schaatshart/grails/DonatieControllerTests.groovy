@@ -25,11 +25,15 @@ class DonatieControllerTests {
 	}
 
 	void testList() {
+		def mock = new MockFor(DonatiesOpAlvarumRetrieverService)
+		mock.demand.haalOp{0}
+		mock.use{
+			controller.donatiesOpAlvarumRetrieverService = new DonatiesOpAlvarumRetrieverService();
+			def model = controller.list()
 
-		def model = controller.list()
-
-		assert model.donatieInstanceList.size() == 0
-		assert model.donatieInstanceTotal == 0
+			assert model.donatieInstanceList.size() == 0
+			assert model.donatieInstanceTotal == 0
+		}
 	}
 
 	void testCreate() {

@@ -16,7 +16,7 @@ class DonatieStatusController {
 
 	private DonatieStatus bepaalStatus() {
 		DonatieStatus status = new DonatieStatus()
-		status.doel=2500
+		status.doel=5000
 		def alvarumDonaties = donatiesOpAlvarumRetrieverService.haalOp()
 		if (alvarumDonaties!=null){
 			status.verwachteDonaties=Donatie.getOverallAmount() + alvarumDonaties
