@@ -18,7 +18,7 @@
 		<g:message code="donatie.amountPerKm.label" default="Amount Per Km" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="amountPerKm" value="${fieldValue(bean: donatieInstance, field: 'amountPerKm')}" required="" onchange="document.getElementById('total').innerHTML=this.value;"/>
+	<g:field name="amountPerKm" value="${fieldValue(bean: donatieInstance, field: 'amountPerKm')}" required="" onkeyup="document.getElementById('total').innerHTML=this.value;"/>
 	<p class="explanation">Je totale donatie als ik 100km schaats komt dan op  &euro; <span id="total">${donatieInstance.amountPerKm}</span>
 </div>
 
