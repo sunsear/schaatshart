@@ -5,12 +5,12 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="name" required="" value="${donatieInstance?.name}"/>
-</div>
-<div>
+	<div>
 	<g:checkBox name="anoniem" class="anoniem" value="${donatieInstance?.anoniem}" />
 	<label for="anoniem" class="anoniem">
 		<g:message code="donatie.anoniem.label" default="Anoniem" />
 	</label>
+	</div>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: donatieInstance, field: 'amountPerKm', 'error')} required">

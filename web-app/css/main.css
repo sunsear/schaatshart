@@ -34,26 +34,38 @@ ul.errors li {
 ul li {
 	margin-left: 25px;
 }
+div.fieldcontain {
+	margin-bottom: 1.625em;
+}
 label{
 	width: 200px;
 	display:block;
-	float:left;
+	color: gray;
+}
+input {
+	width: 250px;
+	font-size: 16px;
+	background: #F9F9F9;
 }
 input.anoniem {
-	float: left;
+	float:left;
+	width:auto;
 }
 label.anoniem{
 	width: auto;
-	float: none;
 }
-.explanation{
+p.explanation{
 	font-size: smaller;
+	margin: 0;
+}
+input#create {
+	width: auto;
 }
 #total {
 	font-weight: bold;
 }
 table.donaties, p{
-	margin: 15px 0;
+	margin: 1.625em 0;
 }
 table.donaties col.naam {
 	width: 350px;
