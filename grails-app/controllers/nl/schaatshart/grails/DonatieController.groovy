@@ -6,6 +6,7 @@ class DonatieController {
     static allowedMethods = [save: "POST"]
 	def simpleCaptchaService
 	def donatiesOpAlvarumRetrieverService
+	def emailService
 
     def index() {
         redirect(action: "list", params: params)
@@ -31,7 +32,7 @@ class DonatieController {
             render(view: "create", model: [donatieInstance: donatieInstance])
             return
         }
-		EmailService.sendEmail('martin@van-dijken.eu',"Een nieuwe donatie per km ontvangen","'${donatieInstance.name}','${donatieInstance.anoniem}','${donatieInstance.amountPerKm}','${donatieInstance.email}','${donatieInstance.phone}'")
+		emailService.sendEmail('martin@van-dijken.eu',"Een nieuwe donatie per km ontvangen","'${donatieInstance.name}','${donatieInstance.anoniem}','${donatieInstance.amountPerKm}','${donatieInstance.email}','${donatieInstance.phone}'")
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'donatie.label', default: 'Donatie'), donatieInstance.id])
 		flash.donatieId=donatieInstance.id

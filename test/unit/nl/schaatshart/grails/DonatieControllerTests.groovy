@@ -69,8 +69,13 @@ class DonatieControllerTests {
 	void testSaveCorrectInstance(){
 		def mock = new MockFor(SimpleCaptchaService)
 		mock.demand.validateCaptcha{return true}
+		def mailMockControl = mockFor(EmailService, true)
+		mailMockControl.demand.sendEmail{}
+		def mailMock = mailMockControl.createMock();
+
 		mock.use(){
 			controller.simpleCaptchaService=new SimpleCaptchaService()
+			controller.emailService = mailMock
 			populateValidParams(params)
 			controller.save()
 

@@ -9,7 +9,7 @@ import org.apache.http.protocol.HttpContext
 
 class EmailService {
 
-	static def sendEmail(String to, String subject, String message) {
+	def sendEmail(String to, String subject, String message) {
 		try{
 			def http = new RESTClient("https://api.mailgun.net/v2/schaatshart.mailgun.org/")
 
