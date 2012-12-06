@@ -128,8 +128,7 @@ a.steun {
 	display:inline-block;
 	border-radius: 5px;
 	font-weight:bold;
-	width: 100px;
-	padding: 5px;
+	padding: 5px 15px;
 	color:white;
 	text-align:center;
 	background-image: -moz-linear-gradient(
