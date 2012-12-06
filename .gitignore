@@ -1,4 +1,4 @@
 /.groovy
 /.link_to_grails_plugins
 /target-eclipse
-/.DS_Store
+.DS_Store
