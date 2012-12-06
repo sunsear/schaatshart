@@ -88,107 +88,46 @@ table.donaties th a{
 em {
 	font-style: italic;
 }
-
-/*
- * Gradient Shadow
- */
-
-/* All HTML5 progress enabled browsers */
-progress.voortgang {
-
-	/* Turns off styling - not usually needed, but good to know. */
-	appearance: none;
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	/* gets rid of default border in Firefox and Opera. */
-	border: solid #cccccc 5px;
-	border-radius: 10px;
-	/* Dimensions */
-	width: 160px;
-	height: 45px;
+a.donatieMeter {
+	display:block;
+	width: 74px;
+	height: 140px;
+	background: url('../images/stapel_munten_achtergrond.png') no-repeat 0 0;
+	position:relative;
+	float:left;
 }
-
-/* Polyfill */
-progress.voortgang[role]:after {
-	background-image: none; /* removes default background from polyfill */
+strong.meter {
+	display:block;
+	position:absolute;
+	bottom: 0px;
+	width: 74px;
+	background: url('../images/stapel_munten.png') no-repeat bottom left;
 }
-
-/*
- * Background of the progress bar background
- */
-
-/* Firefox and Polyfill */
-progress.voortgang {
-	background: #cccccc !important; /* !important only needed in polyfill */
+.voortgang {
+	text-align:center;
 }
-
-/* Chrome */
-progress.voortgang::-webkit-progress-bar {
-	background: #cccccc;
+.voortgang em {
+	padding-top: 10px;
+	font-size:x-large;
+	display: block;
 }
-
-/*
- * Background of the progress bar value
- */
-
-/* Firefox */
-progress.voortgang::-moz-progress-bar {
-	border-radius: 5px;
-	background-image: -moz-linear-gradient(
-		center bottom,
-		rgb(43,194,83) 37%,
-		rgb(84,240,84) 69%
-	);
-}
-
-/* Chrome */
-progress.voortgang::-webkit-progress-value {
-	border-radius: 5px;
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0, rgb(43,194,83)),
-		color-stop(1, rgb(84,240,84))
-	);
-	background-image: -webkit-linear-gradient(
-		center bottom,
-		rgb(43,194,83) 37%,
-		rgb(84,240,84) 69%
-	);
-}
-
-/* Polyfill */
-progress.voortgang[aria-valuenow]:before {
-	border-radius: 5px;
-	background-image: -moz-linear-gradient(
-		center bottom,
-		rgb(43,194,83) 37%,
-		rgb(84,240,84) 69%
-	);
-	background-image: -ms-linear-gradient(
-		center bottom,
-		rgb(43,194,83) 37%,
-		rgb(84,240,84) 69%
-	);
-	background-image: -o-linear-gradient(
-		center bottom,
-		rgb(43,194,83) 37%,
-		rgb(84,240,84) 69%
-	);
-}
-strong.voortgang {
+.voortgang strong.details {
+	padding-top: 15px;
+	display:block;
+	text-align:center;
 	font-size:smaller;
 }
-strong.voortgang a {
+.voortgang strong.details a {
 	color: black;
+	display: block;
 }
 
 /* Polyfill */
 a.steun {
 	margin-top: 10px;
-	display:block;
+	display:inline-block;
 	border-radius: 5px;
+	font-weight:bold;
 	width: 100px;
 	padding: 5px;
 	color:white;
@@ -220,6 +159,7 @@ a.steun {
 		rgb(43,194,83) 37%,
 		rgb(84,240,84) 69%
 	);
+	filter: progid:DXImageTransform.Microsoft.gradient(endColorstr=#FF2BC253, startColorstr=#FF54F054);
 	
 }
 
