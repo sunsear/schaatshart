@@ -70,8 +70,12 @@ environments {
 }
 grails.cache.config = {
 	cache {
-	   name 'donatieTotaal'
-	   timeToLiveSeconds 120
+		name 'donatieTotaal'
+		timeToLiveSeconds 120
+	}
+	cache {
+		name 'runkeeperActivities'
+		timeToLiveSeconds 3600
 	}
 }
 

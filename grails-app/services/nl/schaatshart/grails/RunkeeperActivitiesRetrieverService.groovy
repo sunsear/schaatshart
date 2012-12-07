@@ -1,5 +1,6 @@
 package nl.schaatshart.grails
 
+import grails.plugin.cache.Cacheable
 import groovyx.net.http.ContentType
 import groovyx.net.http.Method
 import groovyx.net.http.RESTClient
@@ -10,6 +11,7 @@ import org.apache.http.protocol.HttpContext
 
 class RunkeeperActivitiesRetrieverService {
 
+	@Cacheable('runkeeperActivities')
 	def getActivities() {
 		try{
 			def http = new RESTClient("http://api.runkeeper.com/")
@@ -31,9 +33,9 @@ class RunkeeperActivitiesRetrieverService {
 			}
 			return activities;
 		} catch (groovyx.net.http.HttpResponseException ex) {
-			println "Fout opgetreden tijdens versturen van email: "+ ex.getMessage()
+			println "Fout opgetreden tijdens ophalen runkeeper activities: "+ ex.getMessage()
 		} catch (java.net.ConnectException ex) {
-			println "Fout opgetreden tijdens verbinden van emailconnectie: "+ ex.getMessage()
+			println "Fout opgetreden tijdens ophalen runkeeper activities: "+ ex.getMessage()
 		}
 	}
 }

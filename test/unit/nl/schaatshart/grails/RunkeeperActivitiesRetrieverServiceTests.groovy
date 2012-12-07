@@ -11,7 +11,6 @@ import org.junit.*
  */
 @TestFor(RunkeeperActivitiesRetrieverService)
 class RunkeeperActivitiesRetrieverServiceTests {
-	def runkeeperActivitiesRetrieverService
 	void testGetActivities() {
 		println new RunkeeperActivitiesRetrieverService().getActivities();
 	}
