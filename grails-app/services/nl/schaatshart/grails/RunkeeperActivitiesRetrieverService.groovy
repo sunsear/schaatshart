@@ -5,6 +5,9 @@ import groovyx.net.http.ContentType
 import groovyx.net.http.Method
 import groovyx.net.http.RESTClient
 
+import java.text.ParsePosition
+import java.text.SimpleDateFormat
+
 import org.apache.http.HttpRequest
 import org.apache.http.HttpRequestInterceptor
 import org.apache.http.protocol.HttpContext
@@ -27,7 +30,11 @@ class RunkeeperActivitiesRetrieverService {
 				headers.Accept = 'application/vnd.com.runkeeper.FitnessActivityFeed+json'
 
 				response.success = { resp, json ->
+					def format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", new Locale("en","US"))
 					activities = json.items
+					activities.each{
+						it.start_seconds = format.parse(it.start_time, new ParsePosition(0)).getTime()
+					}
 					return resp.status
 				}
 			}

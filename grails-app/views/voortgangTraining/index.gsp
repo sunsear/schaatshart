@@ -50,7 +50,7 @@
 
 <body>
 	<g:each in="${activities}" status="i" var="activity">
-		${activity.start_time} : ${activity.duration}
+		${activity.start_seconds} : ${activity.duration}
 	</g:each>
 	<div class="progressChart">
 
