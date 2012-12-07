@@ -49,9 +49,9 @@
 </head>
 
 <body>
-	<g:each in="${activities}" status="i" var="activity">
-		${activity.start_seconds} : ${activity.duration}
-	</g:each>
+	[<g:each in="${activities}" status="i" var="activity">
+		[${activity.start_seconds},${activity.duration}]<g:if test="${i<activities.size()-1}">,</g:if>
+	</g:each>]
 	<div class="progressChart">
 
 	    <div id="chart_div" class="chart" style="width: 240px; height: 150px;"></div>
