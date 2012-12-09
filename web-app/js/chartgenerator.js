@@ -13,100 +13,154 @@ var ChartGenerator = ( function( w, b ) {
 	
 	var gLoaded			= false,
 		delayedCharts	= new Array();
+	
+	var YEAR = new Date(2012,0,1, 0, 0, 0, 0).getTime(),
+		SECOND = 1000,
+		MINUTE = SECOND * 60,
+		HOUR = MINUTE * 60,
+		DAY = HOUR * 24,
+		WEEK = DAY * 7,
+		startWeek = 37;
+
 
 	/**
-	 * Calculate the weeks and targets.
+	 * Calculate the week of year based on millies.
 	 * 
-	 * @param	[int]	ws	Starting week
-	 * @param	[int]	we	Ending week
-	 * @param	[int]	ts	Starting target value
-	 * @param	[int]	te	Ending target value
 	 */
-	function calculate( ws, we, ts, te, chart ) {
+	function getWeek( time ) {
 
-		var t	= we - ws,
-			inc	= ( te - ts ) / t;
+		var sinceThisYear = time - YEAR,
+			remains = sinceThisYear%WEEK,
+			w = ( sinceThisYear - remains ) / WEEK;
 
-		for ( var i = 0; i <= t; i++ ) {
+		while ( w > 52 ) {
+			w -= 52;
+		}
+		
+		return w;
 
-			chart.weeks.push( ws + i );
-			chart.targets.push( ts + Math.round( i * inc ) );
+	}
+
+	/**
+	 * Calculate fractional week of year based on millies.
+	 * 
+	 */
+	function getWeekFloat( time ) {
+
+		var sinceThisYear = time - YEAR,
+			w = sinceThisYear/WEEK;
+
+		while ( w >= 53 ) {
+			w -= 52;
+		}
+		
+		return w;
+
+	}
+
+	/**
+	 * Get data for a specific week from the target data of a
+	 * chart.
+	 * 
+	 */
+	function getWeekData( week, chart ) {
+
+		for ( var i = 0; i < chart.dataset.length; i++ ) {
+
+			var data = chart.dataset[i];
+			if ( data[0] === week ) return data;
+
+		}
+		
+		return null;
+
+	}
+
+	/**
+	 * Generate a measure point based on actual data combined with
+	 * the target data of a chart.
+	 * 
+	 * @param [boolean] rounded Set to true if you want rounded weeks (as opposed to fractional)
+	 */
+	function getMeasurePoint( data, chart, rounded ) {
+		
+		console.log( "*** mp", data, chart, rounded );
+
+		var week = getWeek(data[0]);
+		
+		var setData = getWeekData(week, chart);
+
+		console.log( "*** mp2", week, setData );
+		
+		if (setData == null) {
+			console.log( "Data point '" + JSON.stringify(data) + "' parses to week '" + week + "', which lies outside of the target data!" );
+			return null;
+		}
+		
+		var actualWeek = rounded?week:getWeekFloat(data[0]);
+		if ( actualWeek < chart.startWeek ) {
+			actualWeek += (52 - chart.startWeek);
+		} else {
+			actualWeek -= chart.startWeek;
+		}
+	
+		return [ ++actualWeek, data[1], setData[1] ];
+
+	}
+
+	/**
+	 * Craft a two-dimensional array of measuring points based on the
+	 * target data provided at construction time combined with actual data.
+	 */
+	function craftDataArray( data, chart, rounded ) {
+
+		var out = [['Week',	'Behaald',	'Doel']];
+		
+		for ( var i = 0; i <  data.length; i++ ) {
+
+			var dataEntry = data[i];
+			var mp = getMeasurePoint( dataEntry, chart, rounded );
+			if ( mp !== null ) {
+				out.push(mp);
+			}
 
 		}
 
-	}
-
-	/**
-	 * Return the base set of information.
-	 * 
-	 */
-	function getBaseSet( chart ) {
-
-		return {
-
-			w: chart.weeks,
-			t: chart.targets,
-			r: chart.results
-
-		};
+		return out;
 
 	}
 
 	/**
-	 * Craft the data set based on start and end week as
-	 * well as a set of data-points.
+	 * Draw a google chart on element with 'id' using a two-dimensional array of
+	 * measuring points.
 	 * 
-	 * @param [int] s Starting week
-	 * @param [int] e Ending week
-	 * @param [Array] d data points for building the Array
 	 */
-	function craftDataArray( s, e, d, chart ) {
-
-		var data = [['Week',	'Behaald',	'Doel']];
-
-		var offset = 0;
-		
-		for ( offset = 0; offset < chart.weeks.length && s > chart.weeks[offset]; offset++ );
-		
-		for ( var i = offset; i < chart.weeks.length && chart.weeks[i] <= e; i++) {
-
-			var entry = [chart.weeks[i], d[i - offset], chart.targets[i]];
-			data.push( entry );
-
-		}
-
-		return data;
-
-	}
-
     function drawChart( id, dataset ) {
     	if (!gLoaded) {
     		
     		delayedCharts.push( { id: id, data: dataset } );
     		
     	} else {
-    		var dt = document.getElementById("chart_detailed");
-    		if (dt) {
-    			dt.className = " details inProgress";
-    		}
 
     		var data = google.visualization.arrayToDataTable( dataset );
 
     		var options = {
 				legend	: { position	: 'none' },
 				vAxis	: { title		: 'Minuten' },
-				hAxis	: { title		: 'Week' }
+				hAxis	: { title		: 'Trainings Week' }
     		};
 
     		var chart = new google.visualization.LineChart(document.getElementById( id ));
     		chart.draw(data, options);
 
-    		if (dt) {
-    			dt.className = " details";
-    		}
     	}
     }
-    
+
+    /**
+     * Any requests to draw charts before google is ready are captured and
+     * this method will fullfill them when google api is ready to rock.
+     * 
+     */
     function drawDelayed() {
     	gLoaded = true;
     	var entry = null;
@@ -116,35 +170,42 @@ var ChartGenerator = ( function( w, b ) {
     	}
     }
 
+    // Get google charting enabled
     google.load("visualization", "1", {packages:["corechart"]});
+    // When finished loading check for delayed render requests
     google.setOnLoadCallback(drawDelayed);
-    
-    function constructor( ws, we, ts, te ) {
 
-    	this.weeks		= new Array(),
-    	this.targets	= new Array(),
-    	this.results	= new Array();
+
+    //Constructor of ChartGenerator
+    function constructor( dataset, sw ) {
     	
-    	this.baseSet	= calculate( ws, we, ts, te, this );
+    	if (arguments.length <= 0) {
+    		throw "dataset is required at construction!!"
+    	}
+
+    	this.dataset	= dataset;
+    	
+    	if ( typeof sw !== "undefined" ) {
+    		this.startWeek = sw;
+    	} else {
+    		this.startWeek = startWeek;
+    	}
 
     }
 
+    //Public methods of ChartGenerator
     constructor.prototype = {
 
-    	reCalculate: function( ws, we, ts, te ) {
-    		return calculate( ws, we, ts, te, this );
-    	},
-
-    	drawChart: function( id, s, e, d ) {
-    		drawChart( id, this.craftDataArray( s, e, d ) );
+    	drawChart: function( id, data, rounded ) {
+    		drawChart( id, this.craftDataArray( data, rounded ) );
     	},
     	
-    	craftDataArray: function( s, e, d ) {
-    		return craftDataArray( s, e, d, this );
+    	getMeasurePoint: function( data, rounded ) {
+    		return getMeasurePoint( data, this, rounded );
     	},
     	
-    	getBaseSet: function() {
-    		return getBaseSet( this );
+    	craftDataArray: function( data, rounded ) {
+    		return craftDataArray( data, this, rounded );
     	}
 
     }
