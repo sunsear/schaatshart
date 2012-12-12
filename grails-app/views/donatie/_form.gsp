@@ -38,3 +38,18 @@
 	<g:textField name="phone" value="${donatieInstance?.phone}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: donatieInstance, field: 'aanmoediging', 'error')} ">
+	<label for="aanmoediging">
+		<g:message code="donatie.aanmoediging.label" default="Aanmoedigingsbericht voor Martin" />
+		
+	</label>
+	<g:textField name="aanmoediging" value="${donatieInstance?.aanmoediging}"/>
+</div>
+
+<div class="fieldcontain url ${hasErrors(bean: donatieInstance, field: 'url', 'error')} ">
+	<label for="url">
+		<g:message code="donatie.phone.url" default="Url" />
+		
+	</label>
+	<g:textField name="url" value="${donatieInstance?.url}"/>
+</div>

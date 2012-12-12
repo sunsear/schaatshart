@@ -4,7 +4,6 @@ package nl.schaatshart.grails
 class DonatieController {
 
     static allowedMethods = [save: "POST"]
-	def simpleCaptchaService
 	def donatiesOpAlvarumRetrieverService
 	def emailService
 
@@ -23,9 +22,9 @@ class DonatieController {
 
     def save() {
     	def donatieInstance = new Donatie(params)
-		if (!simpleCaptchaService.validateCaptcha(params.captcha)){
-			donatieInstance.errors.reject('donatie.captcha.doesnotmatch')
-			render(view: "create", model: [donatieInstance: donatieInstance])
+		if (donatieInstance.url){
+			println "url:"+donatieInstance.url+":"
+			render(view: "notreally", model: [donatieInstance: donatieInstance])
 			return
 		}
         if (!donatieInstance.save(flush: true)) {
@@ -47,6 +46,6 @@ class DonatieController {
             return
         }
 
-        [donatieInstance: donatieInstance]
+        [donatieInstance: donatieInstance, donatieInstanceList: [donatieInstance]]
     }
 }

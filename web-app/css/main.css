@@ -36,6 +36,9 @@ ul li {
 div.fieldcontain {
 	margin-bottom: 1.625em;
 }
+div.url {
+	display:none;
+}
 label{
 	width: 200px;
 	display:block;
@@ -67,7 +70,10 @@ table.donaties, p{
 	margin: 1.625em 0;
 }
 table.donaties col.naam {
-	width: 350px;
+	width: 150px;
+}
+table.donaties col.aanmoediging {
+	width: 300px;
 }
 table.donaties col.donatie {
 	width: 150px;

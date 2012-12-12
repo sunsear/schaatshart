@@ -11,33 +11,7 @@
 			 
 			<h1>Bedankt voor je donatie!</h1>
 			<p>Na 25 januari neem ik contact met je op om het overmaken van de donatie te regelen. Je donatie wordt als volgt op de site vermeld:</p>
-			<table class="donaties" cellpadding="0" cellspacing="0">
-				<colgroup>
-					<col class="naam"></col>
-					<col class="donatie"></col>
-				</colgroup>
-				<thead>
-				<tr>
-					<th><g:message code="donatie.name.label" default="Naam" /></th>
-					<th><g:message code="donatie.label" default="Donatie" /></th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td>
-						<g:if test="${!donatieInstance.anoniem}">
-							<g:fieldValue bean="${donatieInstance}" field="name"/>
-						</g:if>
-						<g:if test="${donatieInstance.anoniem}">
-							Anoniem
-						</g:if>
-					</td>
-					<td>
-						<g:message code="donatie.per.km" args="${[donatieInstance.amountPerKm]}"/>
-					</td>
-				</tr>
-				</tbody>
-			</table>			
+			<g:render template="donatie_table"/>
 			
 			<p>De volgende gegevens worden <em>NIET</em> op de site vermeld, maar worden gebruikt om de uiteindelijke afrekening te kunnen doen.</p>
 

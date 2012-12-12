@@ -2,7 +2,6 @@ package nl.schaatshart.grails
 
 
 
-import grails.plugin.simplecaptcha.SimpleCaptchaService
 import grails.test.mixin.*
 import groovy.mock.interceptor.MockFor
 
@@ -43,47 +42,39 @@ class DonatieControllerTests {
 	}
 
 	void testSaveIncorrectCaptcha() {
-		def mock = new MockFor(SimpleCaptchaService)
-		mock.demand.validateCaptcha{return false}
-		mock.use(){
-			controller.simpleCaptchaService=new SimpleCaptchaService()
-			controller.save()
-
-			assert model.donatieInstance != null
-			assert view == '/donatie/create'
-		}
-	}
-
-	void testSaveIncorrectInstance() {
-		def mock = new MockFor(SimpleCaptchaService)
-		mock.demand.validateCaptcha{return true}
-		mock.use(){
-			controller.simpleCaptchaService=new SimpleCaptchaService()
-			controller.save()
-
-			assert model.donatieInstance != null
-			assert view == '/donatie/create'
-		}
-	}
-
-	void testSaveCorrectInstance(){
-		def mock = new MockFor(SimpleCaptchaService)
-		mock.demand.validateCaptcha{return true}
 		def mailMockControl = mockFor(EmailService, true)
 		mailMockControl.demand.sendEmail{}
 		def mailMock = mailMockControl.createMock();
+		controller.emailService = mailMock
 
-		mock.use(){
-			controller.simpleCaptchaService=new SimpleCaptchaService()
-			controller.emailService = mailMock
-			populateValidParams(params)
-			controller.save()
+		populateValidParams(params)
+		params["url"] = "http://www.test.nl"
+		controller.save()
 
-			assert response.redirectedUrl == '/donatie/show'
-			assert controller.flash.message != null
-			assert controller.flash.donatieId == 1
-			assert Donatie.count() == 1
-		}
+		assert model.donatieInstance != null
+		assert view == '/donatie/notreally'
+	}
+
+	void testSaveIncorrectInstance() {
+		controller.save()
+
+		assert model.donatieInstance != null
+		assert view == '/donatie/create'
+	}
+
+	void testSaveCorrectInstance(){
+		def mailMockControl = mockFor(EmailService, true)
+		mailMockControl.demand.sendEmail{}
+		def mailMock = mailMockControl.createMock();
+		controller.emailService = mailMock
+		populateValidParams(params)
+
+		controller.save()
+
+		assert response.redirectedUrl == '/donatie/show'
+		assert controller.flash.message != null
+		assert controller.flash.donatieId == 1
+		assert Donatie.count() == 1
 	}
 
 	void testShow() {

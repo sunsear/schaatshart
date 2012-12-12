@@ -6,12 +6,17 @@ class Donatie {
 	int amountPerKm = 10;
 	String email;
 	String phone;
+	String aanmoediging;
+	String url;
+
 	static constraints = {
 		name blank:false, minSize:4
 		anoniem()
 		amountPerKm min:1
 		email email:true, blank:false
+		aanmoediging maxSize:255, blank: true
 		phone nullable: true
+		url  nullable: true
 	}
 
 	static def getOverallAmount() {

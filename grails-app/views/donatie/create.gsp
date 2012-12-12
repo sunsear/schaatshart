@@ -23,14 +23,6 @@
 			<g:form action="save" >
 				<fieldset class="form">
 					<g:render template="form"/>
-					<div><img src="${createLink(controller: 'simpleCaptcha', action: 'captcha')}"/></div>
-					<div class="fieldcontain  ${hasErrors(bean: donatieInstance, field: 'captcha', 'error')} required">
-						<label for="captcha">
-							Type bovenstaande letters over:
-							<span class="required-indicator">*</span>
-						</label>
-						<g:textField name="captcha" required="true"/>
-					</div>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
