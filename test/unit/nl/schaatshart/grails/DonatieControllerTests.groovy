@@ -17,6 +17,12 @@ class DonatieControllerTests {
 		params["email"] = "m@nu.nl"
 		params["amountPerKm"] = "1"
 	}
+	void setUp(){
+		def mailMockControl = mockFor(EmailService, true)
+		mailMockControl.demand.sendEmail{}
+		def mailMock = mailMockControl.createMock();
+		controller.emailService = mailMock
+	}
 
 	void testIndex() {
 		controller.index()
@@ -42,10 +48,6 @@ class DonatieControllerTests {
 	}
 
 	void testSaveIncorrectCaptcha() {
-		def mailMockControl = mockFor(EmailService, true)
-		mailMockControl.demand.sendEmail{}
-		def mailMock = mailMockControl.createMock();
-		controller.emailService = mailMock
 
 		populateValidParams(params)
 		params["url"] = "http://www.test.nl"
@@ -63,10 +65,6 @@ class DonatieControllerTests {
 	}
 
 	void testSaveCorrectInstance(){
-		def mailMockControl = mockFor(EmailService, true)
-		mailMockControl.demand.sendEmail{}
-		def mailMock = mailMockControl.createMock();
-		controller.emailService = mailMock
 		populateValidParams(params)
 
 		controller.save()
@@ -75,6 +73,18 @@ class DonatieControllerTests {
 		assert controller.flash.message != null
 		assert controller.flash.donatieId == 1
 		assert Donatie.count() == 1
+	}
+
+	@Ignore
+	void testSaveWithTooBigEncouragement(){
+		populateValidParams(params)
+		params["aanmoediging"] = multiply("1234567890",300)
+
+		println(params["aanmoediging"])
+		controller.save()
+
+		assert model.donatieInstance != null
+		assert view == '/donatie/create'
 	}
 
 	void testShow() {
@@ -93,5 +103,13 @@ class DonatieControllerTests {
 		def model = controller.show()
 
 		assert model.donatieInstance == donatie
+	}
+
+	String multiply(string, times){
+		String result = "";
+		for (int i=0;i<times;i++){
+			result+=string;
+		}
+		return result;
 	}
 }

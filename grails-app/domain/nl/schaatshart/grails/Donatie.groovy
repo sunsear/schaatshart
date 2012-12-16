@@ -14,14 +14,15 @@ class Donatie {
 		anoniem()
 		amountPerKm min:1
 		email email:true, blank:false
-		aanmoediging maxSize:255, blank: true
+		aanmoediging maxSize:255, nullable: true
 		phone nullable: true
 		url  nullable: true
 	}
 
 	static def getOverallAmount() {
 		def c = Donatie.createCriteria()
-		def amount = c.get { projections { sum "amountPerKm" } }
+		def amount = c.get { projections { sum "amountPerKm"
+			} }
 		return amount==null?0:amount
 	}
 }
