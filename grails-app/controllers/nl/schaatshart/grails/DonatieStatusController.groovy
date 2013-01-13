@@ -19,7 +19,7 @@ class DonatieStatusController {
 		status.doel=5000
 		def alvarumDonaties = donatiesOpAlvarumRetrieverService.haalOp()
 		if (alvarumDonaties!=null){
-			status.verwachteDonaties=Donatie.getOverallAmount() + alvarumDonaties
+			status.verwachteDonaties=Donatie.getOverallAmount() + alvarumDonaties + 250
 		}
 		return status
 	}

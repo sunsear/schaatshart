@@ -20,7 +20,7 @@ class DonatieStatusControllerTests {
 			def donatie = DonatieTests.createDonatie()
 			donatie.save(flush:true)
 			controller.index()
-			assert '{"stand":{"doel":5000,"verwachteDonaties":1100}}' == response.contentAsString
+			assert '{"stand":{"doel":5000,"verwachteDonaties":1350}}' == response.contentAsString
 		}
 	}
 
